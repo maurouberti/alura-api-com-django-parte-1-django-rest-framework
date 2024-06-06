@@ -109,3 +109,24 @@ urlpatterns = [
     path('', include(router.urls)),
 ]
 ```
+
+# 4 - Atualizando e deletando recursos
+
+Alterar arquivo **escola/models.py** e adicionar **model matricula** e depois criar as **migrations** com o comando:
+
+```
+python manage.py makemigrations
+```
+
+Executar as **migrations**:
+
+```
+python manage.py migrate
+```
+
+Configurar a área **admin**.  
+Alterar arquivo **escola/admin.py**
+
+Alterar arquivo **escola/serializer.py**  
+Alterar arquivo **escola/views.py**  
+Alterar arquivo **setup/urls.py**  
