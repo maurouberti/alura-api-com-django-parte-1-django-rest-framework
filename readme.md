@@ -1,7 +1,7 @@
 
 ![Static Badge](https://img.shields.io/badge/Alura-%230b182c)
 ![Static Badge](https://img.shields.io/badge/Django-4.2.13-%23092E20?logoColor=ffffff)
-
+![Static Badge](https://img.shields.io/badge/Django%20Rest%20Framework-%23ffffff)
 
 # 1 - Instalando o Django Rest API
 
