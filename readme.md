@@ -130,3 +130,59 @@ Alterar arquivo **escola/admin.py**
 Alterar arquivo **escola/serializer.py**  
 Alterar arquivo **escola/views.py**  
 Alterar arquivo **setup/urls.py**  
+
+# 5 - ListAPIView e Autenticação
+
+Alterar arquivo **escola/serializer.py**
+
+```
+class ListaMatriculasAlunoSerializer(serializers.ModelSerializer):
+    curso = serializers.ReadOnlyField(source='curso.descricao')
+    periodo = serializers.SerializerMethodField()
+    class Meta:
+        model = Matricula
+        fields = ['curso', 'periodo']
+    def get_periodo(self, obj):
+        return obj.get_periodo_display()
+
+class ListaAlunosMatriculadosSerializer(serializers.ModelSerializer):
+    aluno = serializers.ReadOnlyField(source='aluno.nome')
+    class Meta:
+        model = Matricula
+        fields = ['aluno']
+```
+
+Alterar arquivo **escola/views.py**
+
+```
+class ListaMatriculasAluno(generics.ListAPIView):
+    """Listando as matrículas de um aluno"""
+    def get_queryset(self):
+        queryset = Matricula.objects.filter(aluno_id=self.kwargs['pk'])
+        return queryset
+    serializer_class = ListaMatriculasAlunoSerializer
+
+class ListaAlunosMatriculados(generics.ListAPIView):
+    """Listando alunos e alunas matriculados em um curso"""
+    def get_queryset(self):
+        queryset = Matricula.objects.filter(curso_id=self.kwargs['pk'])
+        return queryset
+    serializer_class = ListaAlunosMatriculadosSerializer
+```
+
+Alterar arquivo **setup/urls.py**
+
+```
+urlpatterns = [
+    ...
+    path('aluno/<int:pk>/matriculas/', ListaMatriculasAluno.as_view())
+    path('curso/<int:pk>/matriculas/', ListaAlunosMatriculados.as_view())
+]
+```
+
+Autenticação: adicionar nas **class** do arquivo **escola/views.py**
+
+```
+    authentication_classes = [BasicAuthentication]
+    permission_classes = [IsAuthenticated]
+```
