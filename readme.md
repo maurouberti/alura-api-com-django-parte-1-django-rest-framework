@@ -61,5 +61,32 @@ Adicionar no arquivo **setup/settings.py** o Django Rest Framework como um APP i
 INSTALLED_APPS = [
     ...
     'rest_framework',
+    'escola',
 ]
 ```
+
+# 2 - Modelos, Admin e Serializers
+
+Alterar arquivo **escola/models.py** e depois criar as **migrations** com o comando:
+
+```
+python manage.py makemigrations
+```
+
+Executar as **migrations**:
+
+```
+python manage.py migrate
+```
+
+Configurar a área **admin**.  
+Alterar arquivo **escola/admin.py**
+
+Criar usuário para área **admin**
+
+```
+python manage.py createsuperuser
+```
+
+Criar arquivo **escola/serializer.py**
+
